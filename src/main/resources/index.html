@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Management</title>
+    <style>
+        /* Add your styles here */
+    </style>
+</head>
+<body>
+    <h1>Supply Chain Management</h1>
+
+    <!-- Customer section -->
+    <section id="Customer">
+        <h2>Customer</h2>
+        <ul id="CustomerList"></ul>
+        <button onclick="getCustomer()">Get Customer</button>
+    </section>
+
+ <script>
+        // Function to make GET requests to the backend
+        async function fetchData(url) {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data;
+        }
+
+        // Patients
+        async function getcustomer() {
+            const customer= await fetchData('http://localhost:8080/customer');
+            displayData('CustomerList', customer);
+        }
+ 
+        // Display data in a list
+        function displayData(elementId, data) {
+            const listElement = document.getElementById(elementId);
+            listElement.innerHTML = ''; // Clear previous data
+
+            data.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = JSON.stringify(item);
+                listElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
